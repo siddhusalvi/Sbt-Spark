@@ -3,6 +3,8 @@ package sbtspark
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.{Row, SparkSession}
 import org.junit.Test
+import org.junit.Assert.assertEquals
+import org.scalatest._
 
 class FrameMakerTest {
   @Test def test1 {
@@ -30,7 +32,7 @@ class FrameMakerTest {
     var frameMaker = new FrameMaker
     val frame1 = frameMaker.toFrame(schema, data)
 
-    assert(expected_frame.except(frame1).count() == 0)
+    assertEquals(expected_frame,frame1)
   }
 
   @Test def test2 {
@@ -63,6 +65,6 @@ class FrameMakerTest {
     //getting data frame from FrameMaker class
     var frameMaker = new FrameMaker
     val frame1 = frameMaker.toFrame(schema, data1)
-    assert(expected_frame.except(frame1).count() == 0)
+    assertEquals(expected_frame,frame1)
   }
 }
