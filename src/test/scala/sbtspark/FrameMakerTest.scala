@@ -31,8 +31,7 @@ class FrameMakerTest {
     //getting data frame from FrameMaker class
     var frameMaker = new FrameMaker
     val frame1 = frameMaker.toFrame(schema, data)
-
-    assertEquals(expected_frame,frame1)
+    assert(expected_frame.except(frame1).count() == 0)
   }
 
   @Test def test2 {
@@ -65,6 +64,8 @@ class FrameMakerTest {
     //getting data frame from FrameMaker class
     var frameMaker = new FrameMaker
     val frame1 = frameMaker.toFrame(schema, data1)
-    assertEquals(expected_frame,frame1)
+
+    assert(expected_frame.except(frame1).count() == 0)
+
   }
 }
