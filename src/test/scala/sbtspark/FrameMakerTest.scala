@@ -1,5 +1,5 @@
 package sbtspark
-
+import sbtspark.FrameCompare
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.{Row, SparkSession}
 import org.junit.Test
@@ -30,8 +30,11 @@ class FrameMakerTest {
 
     //getting data frame from FrameMaker class
     var frameMaker = new FrameMaker
-    val frame1 = frameMaker.toFrame(schema, data)
-    assert(expected_frame.except(frame1).count() == 0)
+    val result_frame = frameMaker.toFrame(schema, data)
+
+    val frameCompare = new FrameCompare()
+
+    assert(frameCompare.areEqual(expected_frame,result_frame))
   }
 
   @Test def test2 {
@@ -63,9 +66,10 @@ class FrameMakerTest {
 
     //getting data frame from FrameMaker class
     var frameMaker = new FrameMaker
-    val frame1 = frameMaker.toFrame(schema, data1)
+    val result_frame = frameMaker.toFrame(schema, data1)
 
-    assert(expected_frame.except(frame1).count() == 0)
+    val frameCompare = new FrameCompare()
+    assert(frameCompare.areEqual(expected_frame,result_frame))
 
   }
 }
